@@ -39,11 +39,15 @@ public:
     ifstream output;
     ofstream input;
     string fileName;
-    double Harga_pilih;
+    double Harga_pilih = 0;
 
     Db(const char *fileName)
     {
         Db::fileName = fileName;
+    }
+    double getHarga()
+    {
+        return Harga_pilih;
     }
 
     // fungsi menyimpan data
@@ -81,7 +85,7 @@ public:
         Db::output.close();
     }
 
-    double pesanMenu(int pilih)
+    void pesanMenu(int pilih)
     {
         Db::output.open(Db::fileName, ios::in);
         string pilihNama;
@@ -99,18 +103,12 @@ public:
                 cout << pilih << endl;
                 cout << "Menu : " << pilihNama << endl;
                 cout << "Harga : " << pilihHarga << endl;
+                Db::Harga_pilih = pilihHarga;
             }
         }
 
-        index - 1;
-        Harga_pilih = pilihHarga;
         Db::output.close();
-        return Harga_pilih;
         // cout << "\n\nHarga pilih : " << tampilHarga << endl;
-    }
-    double getHarga()
-    {
-        return Harga_pilih;
     }
 };
 

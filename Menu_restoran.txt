@@ -1,8 +1,8 @@
 Ayam_Geprek 10000
-Ayam_Bakar 15000
+Ayam_Bakar 11000
 Ayam_Goreng 12000
-Ayam_Rendang 12000
-Nasi_goreng 13000
+Ayam_Rendang 13000
+Nasi_goreng 14000
 Ayam_goreng 15000
-Nasi_pecel 10000
-Ayam_sadis 12000
+Nasi_pecel 9000
+Ayam_sadis 16000
