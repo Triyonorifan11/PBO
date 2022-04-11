@@ -7,8 +7,6 @@ using namespace std;
 
 void mainMenu();
 
-int jumlah_menu = 0;
-
 // simpan data menu
 
 class Menu
@@ -41,6 +39,7 @@ public:
     ifstream output;
     ofstream input;
     string fileName;
+    double Harga_pilih;
 
     Db(const char *fileName)
     {
@@ -50,9 +49,6 @@ public:
     // fungsi menyimpan data
     void save(Menu data)
     {
-        cout << data.nama_menu << endl;
-        cout << data.harga << endl;
-
         Db::input.open(Db::fileName, ios::app);
         Db::input << data.getMenu();
         Db::input << " " << data.getharga();
@@ -85,26 +81,36 @@ public:
         Db::output.close();
     }
 
-    void pesanMenu(int pilih)
+    double pesanMenu(int pilih)
     {
         Db::output.open(Db::fileName, ios::in);
-        string tampilNama;
-        double tampilHarga;
+        string pilihNama;
+        double pilihHarga;
+
         int index = 1;
 
         while (!Db::output.eof())
         {
-            Db::output >> tampilNama;
-            Db::output >> tampilHarga;
+            Db::output >> pilihNama;
+            Db::output >> pilihHarga;
             index++;
             if (pilih == index - 1)
             {
                 cout << pilih << endl;
-                cout << "Menu : " << tampilNama << endl;
-                cout << "Harga : " << tampilHarga << endl;
+                cout << "Menu : " << pilihNama << endl;
+                cout << "Harga : " << pilihHarga << endl;
             }
         }
+
+        index - 1;
+        Harga_pilih = pilihHarga;
         Db::output.close();
+        return Harga_pilih;
+        // cout << "\n\nHarga pilih : " << tampilHarga << endl;
+    }
+    double getHarga()
+    {
+        return Harga_pilih;
     }
 };
 
@@ -144,11 +150,12 @@ void pilihMenuPesan()
     int pilihPesanan;
     system("cls");
     dataBase.showAll();
-    cout << "\n\nPilih menu diatas";
+    cout << "\n\nPilih menu diatas : ";
     cin >> pilihPesanan;
 
     dataBase.pesanMenu(pilihPesanan);
     // cout << "Pesanan diterima" << endl;
+    cout << "Harga dipilih = " << dataBase.getHarga() << endl;
     system("pause");
     mainMenu();
 }
