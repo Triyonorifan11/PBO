@@ -22,16 +22,19 @@ public:
         Menu::nama_menu = nama_menu;
         Menu::harga = harga;
     }
+
     string getMenu()
     {
         return "\n" + nama_menu;
     }
+
     double getharga()
     {
         return harga;
     }
 };
 
+// class database untuk menyimpan data ke file txt
 class Db
 {
 public:
@@ -75,16 +78,40 @@ public:
             Db::output >> tampilHarga;
 
             cout << index++ << "\t" << tampilNama << "\t" << tampilHarga << endl;
-            jumlah_menu++;
         }
-        cout << "\n\nJumlah Menu = " << jumlah_menu << endl;
+
+        cout << "jumlah Menu: " << index - 1 << endl;
+
+        Db::output.close();
+    }
+
+    void pesanMenu(int pilih)
+    {
+        Db::output.open(Db::fileName, ios::in);
+        string tampilNama;
+        double tampilHarga;
+        int index = 1;
+
+        while (!Db::output.eof())
+        {
+            Db::output >> tampilNama;
+            Db::output >> tampilHarga;
+            index++;
+            if (pilih == index - 1)
+            {
+                cout << pilih << endl;
+                cout << "Menu : " << tampilNama << endl;
+                cout << "Harga : " << tampilHarga << endl;
+            }
+        }
         Db::output.close();
     }
 };
 
+// 1. fungsi input menu baru
 void inputMenu()
 {
-    Db dataBase = Db("Manu_restoran.txt");
+    Db dataBase = Db("Menu_restoran.txt");
     string namaMenu;
     double harga;
     cout << "Catatan !! jika ada spasi ganti _" << endl;
@@ -94,29 +121,34 @@ void inputMenu()
     cout << "Harga : ";
     cin >> harga;
 
-    // save data
     Menu menu1 = Menu(namaMenu, harga);
+    // save data
     dataBase.save(menu1);
 }
 
-// menampilkan daftar menu
+// 2. menampilkan daftar menu
 void tampilMenu()
 {
     system("cls");
-    Db dataBase = Db("Manu_restoran.txt");
+    Db dataBase = Db("Menu_restoran.txt");
     // tampilkan data
     dataBase.showAll();
     system("Pause");
     mainMenu();
 }
 
-// memilih menu untuk pemesanan
+// 3. memilih menu untuk pemesanan
 void pilihMenuPesan()
 {
+    Db dataBase = Db("Menu_restoran.txt");
+    int pilihPesanan;
     system("cls");
-    tampilMenu();
-    cout << "\n\nPilih menu diatas" << endl;
-    cout << "Pesanan diterima" << endl;
+    dataBase.showAll();
+    cout << "\n\nPilih menu diatas";
+    cin >> pilihPesanan;
+
+    dataBase.pesanMenu(pilihPesanan);
+    // cout << "Pesanan diterima" << endl;
     system("pause");
     mainMenu();
 }

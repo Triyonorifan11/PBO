@@ -5,3 +5,4 @@ Ayam_Rendang 12000
 Nasi_goreng 13000
 Ayam_goreng 15000
 Nasi_pecel 10000
+Ayam_sadis 12000
