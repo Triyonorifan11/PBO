@@ -1,8 +1,13 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <windows.h>
 
 using namespace std;
+
+void mainMenu();
+
+int jumlah_menu = 0;
 
 // simpan data menu
 
@@ -59,13 +64,20 @@ public:
         double tampilHarga;
         int index = 1;
 
+        cout << "No "
+             << "\t"
+             << "Daftar Menu"
+             << "\t"
+             << "Daftar Harga" << endl;
         while (!Db::output.eof())
         {
             Db::output >> tampilNama;
             Db::output >> tampilHarga;
-            cout << index++ << "\t" << tampilNama << "\t" << tampilHarga << endl;
-        }
 
+            cout << index++ << "\t" << tampilNama << "\t" << tampilHarga << endl;
+            jumlah_menu++;
+        }
+        cout << "\n\nJumlah Menu = " << jumlah_menu << endl;
         Db::output.close();
     }
 };
@@ -75,7 +87,8 @@ void inputMenu()
     Db dataBase = Db("Manu_restoran.txt");
     string namaMenu;
     double harga;
-    cout << "Input Menu" << endl;
+    cout << "Catatan !! jika ada spasi ganti _" << endl;
+    cout << "\nInput Menu" << endl;
     cout << "Nama : ";
     cin >> namaMenu;
     cout << "Harga : ";
@@ -89,23 +102,42 @@ void inputMenu()
 // menampilkan daftar menu
 void tampilMenu()
 {
+    system("cls");
     Db dataBase = Db("Manu_restoran.txt");
     // tampilkan data
     dataBase.showAll();
+    system("Pause");
+    mainMenu();
 }
 
+// memilih menu untuk pemesanan
+void pilihMenuPesan()
+{
+    system("cls");
+    tampilMenu();
+    cout << "\n\nPilih menu diatas" << endl;
+    cout << "Pesanan diterima" << endl;
+    system("pause");
+    mainMenu();
+}
+
+// tutup Aplikasi
 void close()
 {
+    system("cls");
     cout << "terima kasih" << endl;
 }
 
+// Main menu
 void mainMenu()
 {
+    system("cls");
     int input;
     cout << " silahkan pilih menu" << endl;
     cout << "1. Input menu" << endl;
     cout << "2. Lihat menu" << endl;
-    cout << "3. close" << endl;
+    cout << "3. Pesan Menu" << endl;
+    cout << "4. close" << endl;
     cout << "Pilih: ";
     cin >> input;
 
@@ -119,6 +151,10 @@ void mainMenu()
     }
     else if (input == 3)
     {
+        pilihMenuPesan();
+    }
+    else if (input == 4)
+    {
         close();
     }
     else
@@ -130,6 +166,7 @@ void mainMenu()
 
 int main(int argc, char const *argv[])
 {
+
     mainMenu();
     return 0;
 }
