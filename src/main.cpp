@@ -45,7 +45,7 @@ public:
     {
         Db::fileName = fileName;
     }
-    double getHarga()
+    double getHargaMenu()
     {
         return Harga_pilih;
     }
@@ -153,7 +153,7 @@ void pilihMenuPesan()
 
     dataBase.pesanMenu(pilihPesanan);
     // cout << "Pesanan diterima" << endl;
-    cout << "Harga dipilih = " << dataBase.getHarga() << endl;
+    cout << "Harga dipilih = " << dataBase.getHargaMenu() << endl;
     system("pause");
     mainMenu();
 }
