@@ -32,22 +32,35 @@ public:
     }
 };
 
-// class database untuk menyimpan data ke file txt
+// class database untuk menyimpan data Menu ke file txt
 class Db
 {
 public:
     ifstream output;
     ofstream input;
     string fileName;
-    double Harga_pilih = 0;
+
+    string menu_pilih;
+    double harga_pilih = 0;
 
     Db(const char *fileName)
     {
         Db::fileName = fileName;
     }
+
+    Db(string feeNama, double feeHarga)
+    {
+        Db::menu_pilih = feeNama;
+        Db::harga_pilih = feeHarga;
+    }
+
+    string getNamaMenu()
+    {
+        return menu_pilih;
+    }
     double getHargaMenu()
     {
-        return Harga_pilih;
+        return harga_pilih;
     }
 
     // fungsi menyimpan data
@@ -85,6 +98,7 @@ public:
         Db::output.close();
     }
 
+    // untuk pilih menu pesanan dan ambil harga pesanan
     void pesanMenu(int pilih)
     {
         Db::output.open(Db::fileName, ios::in);
@@ -103,12 +117,40 @@ public:
                 cout << pilih << endl;
                 cout << "Menu : " << pilihNama << endl;
                 cout << "Harga : " << pilihHarga << endl;
-                Db::Harga_pilih = pilihHarga;
+                // Db send = Db(pilihNama, pilihHarga);
+                Db::menu_pilih = pilihNama;
+                Db::harga_pilih = pilihHarga;
             }
         }
 
         Db::output.close();
         // cout << "\n\nHarga pilih : " << tampilHarga << endl;
+    }
+};
+
+// class tranksasi pembayaran
+class Db_fee
+{
+public:
+    double harga_menu;
+    string nama_menu;
+    double total_bayar;
+    double bayar;
+    string db_feeName;
+    ifstream output_fee;
+    ofstream input_fee;
+
+    Db_fee(const char *filename)
+    {
+        Db_fee::db_feeName = filename;
+    }
+
+    void save_fee(Db repo_fee)
+    {
+        Db_fee::input_fee.open(Db_fee::db_feeName, ios::in);
+        Db_fee::input_fee << repo_fee.getNamaMenu();
+        Db_fee::input_fee << repo_fee.getHargaMenu();
+        Db_fee::input_fee.close();
     }
 };
 
@@ -145,6 +187,7 @@ void tampilMenu()
 void pilihMenuPesan()
 {
     Db dataBase = Db("Menu_restoran.txt");
+    Db_fee fee = Db_fee("fee.txt");
     int pilihPesanan;
     system("cls");
     dataBase.showAll();
@@ -152,7 +195,7 @@ void pilihMenuPesan()
     cin >> pilihPesanan;
 
     dataBase.pesanMenu(pilihPesanan);
-    // cout << "Pesanan diterima" << endl;
+    cout << "Menu pilih = " << dataBase.getNamaMenu() << endl;
     cout << "Harga dipilih = " << dataBase.getHargaMenu() << endl;
     system("pause");
     mainMenu();
