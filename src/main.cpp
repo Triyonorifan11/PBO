@@ -48,11 +48,11 @@ public:
         Db::fileName = fileName;
     }
 
-    Db(string feeNama, double feeHarga)
-    {
-        Db::menu_pilih = feeNama;
-        Db::harga_pilih = feeHarga;
-    }
+    // Db(string feeNama, double feeHarga)
+    // {
+    //     Db::menu_pilih = feeNama;
+    //     Db::harga_pilih = feeHarga;
+    // }
 
     string getNamaMenu()
     {
@@ -69,6 +69,18 @@ public:
         Db::input.open(Db::fileName, ios::app);
         Db::input << data.getMenu();
         Db::input << " " << data.getharga();
+        Db::input.close();
+    }
+
+    void save_fee(string namapilih, double hargapilih, int porsi)
+    {
+        Db::input.open(Db::fileName, ios::app);
+        Db::input << "\n"
+                  << namapilih;
+        Db::input << " " << hargapilih;
+        Db::input << " " << porsi;
+        Db::input << " " << hargapilih * porsi;
+        // Db::input << Db::harga_pilih;
         Db::input.close();
     }
 
@@ -114,10 +126,9 @@ public:
             index++;
             if (pilih == index - 1)
             {
-                cout << pilih << endl;
-                cout << "Menu : " << pilihNama << endl;
-                cout << "Harga : " << pilihHarga << endl;
-                // Db send = Db(pilihNama, pilihHarga);
+                // cout << pilih << endl;
+                // cout << "Menu : " << pilihNama << endl;
+                // cout << "Harga : " << pilihHarga << endl;
                 Db::menu_pilih = pilihNama;
                 Db::harga_pilih = pilihHarga;
             }
@@ -126,38 +137,61 @@ public:
         Db::output.close();
         // cout << "\n\nHarga pilih : " << tampilHarga << endl;
     }
+
+    void bayarpesanan()
+    {
+        Db::output.open(Db::fileName, ios::in);
+        string namaPilih;
+        double total_fee = 0, bayar, fee;
+        int porsi;
+        int index = 1;
+        while (!Db::output.eof())
+        {
+            Db::output >> namaPilih;
+            Db::output >> fee;
+            Db::output >> porsi;
+            Db::output >> total_fee;
+            cout << index++ << " " << namaPilih << " " << fee << " x " << porsi << " = " << total_fee << endl;
+            bayar = bayar + total_fee;
+        }
+
+        cout << "\ntotal bayar = " << bayar << endl;
+
+        // double total = Db::harga_pilih * porsi;
+        // cout << "Harga yg harus dibayar = " << total << endl;
+    }
 };
 
+/*
 // class tranksasi pembayaran
-class Db_fee
+class Dbfee : public Db
 {
 public:
     double harga_menu;
     string nama_menu;
     double total_bayar;
     double bayar;
-    string db_feeName;
-    ifstream output_fee;
-    ofstream input_fee;
+    int porsi;
 
-    Db_fee(const char *filename)
+    void porsi(int porsi)
     {
-        Db_fee::db_feeName = filename;
+        Dbfee::porsi = porsi;
     }
 
-    void save_fee(Db repo_fee)
+    double hitung()
     {
-        Db_fee::input_fee.open(Db_fee::db_feeName, ios::in);
-        Db_fee::input_fee << repo_fee.getNamaMenu();
-        Db_fee::input_fee << repo_fee.getHargaMenu();
-        Db_fee::input_fee.close();
+        harga_menu = Db::getHargaMenu();
+        total_bayar = harga_menu * porsi;
+        cout << total_bayar << endl;
+        return total_bayar;
     }
-};
+};*/
 
 // 1. fungsi input menu baru
 void inputMenu()
 {
     Db dataBase = Db("Menu_restoran.txt");
+
     string namaMenu;
     double harga;
     cout << "Catatan !! jika ada spasi ganti _" << endl;
@@ -187,16 +221,24 @@ void tampilMenu()
 void pilihMenuPesan()
 {
     Db dataBase = Db("Menu_restoran.txt");
-    Db_fee fee = Db_fee("fee.txt");
-    int pilihPesanan;
+    Db repo_fee = Db("RepoFee.txt");
+
+    int pilihPesanan, porsi, tambah;
     system("cls");
     dataBase.showAll();
     cout << "\n\nPilih menu diatas : ";
     cin >> pilihPesanan;
+    cout << "Banyak porsi : ";
+    cin >> porsi;
 
     dataBase.pesanMenu(pilihPesanan);
-    cout << "Menu pilih = " << dataBase.getNamaMenu() << endl;
-    cout << "Harga dipilih = " << dataBase.getHargaMenu() << endl;
+    repo_fee.save_fee(dataBase.getNamaMenu(), dataBase.getHargaMenu(), porsi);
+    repo_fee.bayarpesanan();
+    // cout <<"tambah pesanan ? 1(yes)/2(no) ";
+    // cin>>tambah;
+
+    // cout << "Menu pilih = " << dataBase.getNamaMenu() << endl;
+    // cout << "Harga dipilih = " << dataBase.getHargaMenu() << endl;
     system("pause");
     mainMenu();
 }
