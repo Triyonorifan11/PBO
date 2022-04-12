@@ -20,7 +20,7 @@ private:
 public:
     Menu(string nama_menu, double harga)
     {
-        Menu::nama_menu = nama_menu;
+        this->nama_menu = nama_menu;
         Menu::harga = harga;
     }
 
@@ -66,7 +66,7 @@ public:
     {
         Db::input.open(Db::fileName, ios::app);
         Db::input << data.getMenu();
-        Db::input << " " << data.getharga();
+        Db::input << "\t" << data.getharga();
         Db::input.close();
     }
 
@@ -81,6 +81,14 @@ public:
         Db::input << " " << hargapilih * porsi;
         // Db::input << Db::harga_pilih;
         Db::input.close();
+    }
+
+    // Update database menu
+    void updateDb(int indexUpdate)
+    {
+        cout << "update" << endl;
+        Db::output.open(Db::fileName, ios::in);
+        Db::output.open("temp.txt", ios::app);
     }
 
     // fungsi tampilkan data
@@ -132,13 +140,11 @@ public:
         if (pilih > index - 1)
         {
             cout << "nomer salah. input lagi" << endl;
-            porsi = 0;
             system("pause");
             pilihMenuPesan();
         }
 
         Db::output.close();
-        // cout << "\n\nHarga pilih : " << tampilHarga << endl;
     }
 
     // fungsi total pesanan
@@ -274,6 +280,21 @@ void pilihMenuPesan()
     mainMenu();
 }
 
+// https://stackoverflow.com/questions/34507989/update-and-delete-data-from-file-in-c
+void update()
+{
+    Db dataBase = Db("Menu_restoran.txt");
+    Db temp = Db("temp.txt");
+
+    int update;
+    system("cls");
+    dataBase.showAll();
+    cout << "\n\nPilih data yang akan di update = ";
+    cin >> update;
+
+    dataBase.updateDb(update);
+}
+
 // tutup Aplikasi
 void close()
 {
@@ -287,10 +308,11 @@ void mainMenu()
     system("cls");
     int input;
     cout << " silahkan pilih menu" << endl;
-    cout << "1. Input menu" << endl;
-    cout << "2. Lihat menu" << endl;
+    cout << "1. Input Menu" << endl;
+    cout << "2. Lihat Menu" << endl;
     cout << "3. Pesan Menu" << endl;
-    cout << "4. close" << endl;
+    cout << "4. Update Menu" << endl;
+    cout << "5. close" << endl;
     cout << "Pilih: ";
     cin >> input;
 
@@ -308,11 +330,15 @@ void mainMenu()
     }
     else if (input == 4)
     {
+        update();
+    }
+    else if (input == 5)
+    {
         close();
     }
     else
     {
-        cout << "salah input";
+        cout << "salah input" << endl;
         system("pause");
         mainMenu();
     }
