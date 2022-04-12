@@ -43,6 +43,7 @@ public:
     string menu_pilih;
     double harga_pilih = 0;
     double bayar;
+
     Db(const char *fileName)
     {
         Db::fileName = fileName;
@@ -66,6 +67,7 @@ public:
         Db::input.close();
     }
 
+    // save repository menu,harga untuk transaksi
     void save_fee(string namapilih, double hargapilih, int porsi)
     {
         Db::input.open(Db::fileName, ios::app);
@@ -129,7 +131,8 @@ public:
         // cout << "\n\nHarga pilih : " << tampilHarga << endl;
     }
 
-    void bayarpesanan()
+    // fungsi total pesanan
+    void totalpesanan()
     {
         Db::output.open(Db::fileName, ios::in);
         string namaPilih;
@@ -142,25 +145,50 @@ public:
             Db::output >> fee;
             Db::output >> porsi;
             Db::output >> total_fee;
-            cout << index++ << " " << namaPilih << " " << fee << " x " << porsi << " = " << total_fee << endl;
+            cout << index++ << " " << namaPilih << " " << fee << " x " << porsi << " = Rp" << total_fee << endl;
             bayar = bayar + total_fee;
         }
-        cout << "\ntotal bayar = " << bayar << endl;
+        cout << "\ntotal Pesanan = Rp" << bayar << endl;
         Db::bayar = bayar;
-
-        // double total = Db::harga_pilih * porsi;
-        // cout << "Harga yg harus dibayar = " << total << endl;
+        Db::output.close();
     }
-};
 
-class Transaksi : public Db
-{
-public:
-    void bayarPelanggan()
+    void bayarpesanan()
     {
-        cout << "Total bayar = " << Db::bayar << endl;
+
+        double pesanan = Db::bayar;
+        double pajak = 0.01 * pesanan;
+        double diskon = 0;
+        double total_bayar = 0;
+        double bayar_pelanggan = 0;
+        double kembalian = 0;
+
+        if (pesanan >= 100000.0)
+        {
+            diskon = 0.1 * pesanan;
+        }
+
+        total_bayar = pajak + pesanan - diskon;
+        cout << "Total pesanan = Rp" << pesanan << endl;
+        cout << "Pajak = Rp" << pajak << endl;
+        cout << "Diskon = Rp" << diskon << endl;
+        cout << "Total yang harus dibayar = Rp" << total_bayar << endl
+             << endl;
+        cout << "Bayar ? Rp ";
+        cin >> bayar_pelanggan;
+        kembalian = bayar_pelanggan - total_bayar;
+        cout << "Kembali = Rp" << kembalian << endl;
+
+        remove("RepoFee.txt");
     }
 };
+
+// class Transaksi:public Db{
+//     public:
+//     void bayar(){
+//         cout <<"Bayar";
+//     }
+// };
 
 // 1. fungsi input menu restaurant
 void inputMenu()
@@ -192,6 +220,11 @@ void tampilMenu()
     mainMenu();
 }
 
+// void test(){
+//     Transaksi test;
+//     test.bayar();
+// }
+
 // 3. memilih menu untuk pemesanan
 void pilihMenuPesan()
 {
@@ -209,7 +242,7 @@ void pilihMenuPesan()
 
     dataBase.pesanMenu(pilihPesanan);
     repo_fee.save_fee(dataBase.getNamaMenu(), dataBase.getHargaMenu(), porsi);
-    repo_fee.bayarpesanan();
+    repo_fee.totalpesanan();
 
     cout << "tambah pesanan ? 1(yes)/2(no) ";
     cin >> tambah;
@@ -221,7 +254,7 @@ void pilihMenuPesan()
         break;
 
     case 2:
-        bayar();
+        repo_fee.bayarpesanan();
         break;
     default:
         break;
@@ -229,12 +262,6 @@ void pilihMenuPesan()
 
     system("pause");
     mainMenu();
-}
-
-void bayar()
-{
-    Transaksi Bayarmenu;
-    Bayarmenu.bayarPelanggan();
 }
 
 // tutup Aplikasi
