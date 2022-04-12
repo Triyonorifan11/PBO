@@ -43,7 +43,9 @@ private:
     ofstream input;
     string fileName;
     string menu_pilih;
+    string menu_update;
     double harga_pilih = 0;
+    double harga_update = 0;
     double bayar;
 
 public:
@@ -56,6 +58,17 @@ public:
     {
         return menu_pilih;
     }
+
+    string getUpdateNamaMenu()
+    {
+        return menu_update;
+    }
+
+    double getUpdateHargaMenu()
+    {
+        return harga_update;
+    }
+
     double getHargaMenu()
     {
         return harga_pilih;
@@ -88,7 +101,38 @@ public:
     {
         cout << "update" << endl;
         Db::output.open(Db::fileName, ios::in);
-        Db::output.open("temp.txt", ios::app);
+        Db::input.open("temp.txt", ios::app);
+        string updateNama;
+        double updateHarga;
+
+        int index = 1;
+
+        while (!Db::output.eof())
+        {
+            Db::output >> updateNama;
+            Db::output >> updateHarga;
+            index++;
+            if (indexUpdate == index - 1)
+            {
+                cout << "Masukan Nama menu update ";
+                cin >> updateNama;
+                cout << "Masukkan Harga menu update ";
+                cin >> updateHarga;
+                // this->menu_update = updateNama;
+                // this->harga_update = updateHarga;
+                // cout << index++ << updateNama << "\t" << updateHarga << endl;
+            }
+            // cout << index - 1 << updateNama << "\t" << updateHarga << endl;
+            Db::input << "\n"
+                      << updateNama;
+            Db::input << "\t" << updateHarga;
+            // this->menu_update = updateNama;
+            // this->harga_update = updateHarga;
+        }
+        Db::output.close();
+        Db::input.close();
+        remove("Menu_restoran.txt");
+        rename("temp.txt", "Menu_restoran.txt");
     }
 
     // fungsi tampilkan data
@@ -284,7 +328,6 @@ void pilihMenuPesan()
 void update()
 {
     Db dataBase = Db("Menu_restoran.txt");
-    Db temp = Db("temp.txt");
 
     int update;
     system("cls");
@@ -293,6 +336,8 @@ void update()
     cin >> update;
 
     dataBase.updateDb(update);
+    dataBase.showAll();
+    // temp.save_update(dataBase.getUpdateNamaMenu(), dataBase.getUpdateHargaMenu());
 }
 
 // tutup Aplikasi
