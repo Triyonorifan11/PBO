@@ -6,3 +6,5 @@ Nasi_goreng 14000
 Ayam_goreng 15000
 Nasi_pecel 9000
 Ayam_sadis 16000
+Jus_orange 5000
+Ice_cream 7500

@@ -11,10 +11,12 @@ void mainMenu();
 // class daftar menu
 class Menu
 {
-public:
+
+private:
     string nama_menu;
     double harga;
 
+public:
     Menu(string nama_menu, double harga)
     {
         Menu::nama_menu = nama_menu;
@@ -35,15 +37,15 @@ public:
 // class database untuk menyimpan data Menu ke file txt
 class Db
 {
-public:
+private:
     ifstream output;
     ofstream input;
     string fileName;
-
     string menu_pilih;
     double harga_pilih = 0;
     double bayar;
 
+public:
     Db(const char *fileName)
     {
         Db::fileName = fileName;
@@ -156,7 +158,7 @@ public:
     void bayarpesanan()
     {
 
-        double pesanan = Db::bayar;
+        double pesanan = this->bayar;
         double pajak = 0.01 * pesanan;
         double diskon = 0;
         double total_bayar = 0;
@@ -193,6 +195,7 @@ public:
 // 1. fungsi input menu restaurant
 void inputMenu()
 {
+    system("cls");
     Db dataBase = Db("Menu_restoran.txt");
 
     string namaMenu;
@@ -207,6 +210,10 @@ void inputMenu()
     Menu menu1 = Menu(namaMenu, harga);
     // save data
     dataBase.save(menu1);
+    cout << "\n\nData tersimpan !!\n"
+         << endl;
+    system("pause");
+    mainMenu();
 }
 
 // 2. menampilkan daftar menu
