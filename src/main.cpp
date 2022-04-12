@@ -6,6 +6,7 @@
 using namespace std;
 
 void mainMenu();
+void pilihMenuPesan();
 
 // simpan data menu
 // class daftar menu
@@ -109,7 +110,7 @@ public:
     }
 
     // untuk pilih menu pesanan dan ambil harga pesanan
-    void pesanMenu(int pilih)
+    void pesanMenu(int pilih, int porsi)
     {
         Db::output.open(Db::fileName, ios::in);
         string pilihNama;
@@ -127,6 +128,13 @@ public:
                 Db::menu_pilih = pilihNama;
                 Db::harga_pilih = pilihHarga;
             }
+        }
+        if (pilih > index - 1)
+        {
+            cout << "nomer salah. input lagi" << endl;
+            porsi = 0;
+            system("pause");
+            pilihMenuPesan();
         }
 
         Db::output.close();
@@ -227,11 +235,6 @@ void tampilMenu()
     mainMenu();
 }
 
-// void test(){
-//     Transaksi test;
-//     test.bayar();
-// }
-
 // 3. memilih menu untuk pemesanan
 void pilihMenuPesan()
 {
@@ -247,7 +250,7 @@ void pilihMenuPesan()
     cout << "Banyak porsi : ";
     cin >> porsi;
 
-    dataBase.pesanMenu(pilihPesanan);
+    dataBase.pesanMenu(pilihPesanan, porsi);
     repo_fee.save_fee(dataBase.getNamaMenu(), dataBase.getHargaMenu(), porsi);
     repo_fee.totalpesanan();
 
