@@ -277,6 +277,41 @@ public:
     }
 };
 
+// buat metode bayar
+class Metode
+{
+private:
+    string kodebank = "003";
+
+public:
+    void selec()
+    {
+        cout << "pilih";
+    }
+    string getKodeBank()
+    {
+        return kodebank;
+    }
+};
+
+// turunan kelass metode
+class Bank : public Metode
+{
+public:
+    Bank()
+    {
+        cout << "Metode bayar dengan Bank/Mbanking" << endl;
+    }
+    string bank = "BRI";
+};
+
+void metodeBayar()
+{
+    Bank metode;
+    metode.selec();
+    cout << " " << metode.bank << endl;
+    cout << "Kode bank = " << metode.getKodeBank() << endl;
+}
 // 1. fungsi input menu restaurant
 void inputMenu()
 {
@@ -405,6 +440,7 @@ void mainMenu()
     cout << "4. Update Menu" << endl;
     cout << "5. Hapus Menu" << endl;
     cout << "6. close" << endl;
+    cout << "7. tes bayar" << endl;
     cout << "Pilih: ";
     cin >> input;
 
@@ -431,6 +467,10 @@ void mainMenu()
     else if (input == 6)
     {
         close();
+    }
+    else if (input == 7)
+    {
+        metodeBayar();
     }
     else
     {
