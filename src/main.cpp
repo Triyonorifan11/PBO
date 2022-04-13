@@ -45,7 +45,6 @@ private:
     string menu_pilih;
 
     double harga_pilih = 0;
-
     double bayar;
 
 public:
@@ -239,13 +238,6 @@ public:
     }
 };
 
-// class Transaksi:public Db{
-//     public:
-//     void bayar(){
-//         cout <<"Bayar";
-//     }
-// };
-
 // 1. fungsi input menu restaurant
 void inputMenu()
 {
@@ -320,7 +312,7 @@ void pilihMenuPesan()
     mainMenu();
 }
 
-// https://stackoverflow.com/questions/34507989/update-and-delete-data-from-file-in-c
+// 4. fungsi update data menu
 void update()
 {
     Db dataBase = Db("Menu_restoran.txt");
