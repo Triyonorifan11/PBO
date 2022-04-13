@@ -81,7 +81,6 @@ public:
         Db::input << " " << hargapilih;
         Db::input << " " << porsi;
         Db::input << " " << hargapilih * porsi;
-        // Db::input << Db::harga_pilih;
         Db::input.close();
     }
 
@@ -104,9 +103,9 @@ public:
             if (indexUpdate == index - 1)
             {
                 flag = 1;
-                cout << "Masukan Nama menu update ";
+                cout << "Masukan Nama menu update : ";
                 cin >> updateNama;
-                cout << "Masukkan Harga menu update ";
+                cout << "Masukkan Harga menu update : ";
                 cin >> updateHarga;
             }
             Db::input << "\n"
@@ -367,7 +366,6 @@ void update()
     // dataBase.showAll();
     system("pause");
     mainMenu();
-    // temp.save_update(dataBase.getUpdateNamaMenu(), dataBase.getUpdateHargaMenu());
 }
 
 // 5. fungsi hapus menu
