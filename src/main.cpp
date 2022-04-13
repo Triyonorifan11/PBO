@@ -3,6 +3,10 @@
 #include <fstream>
 #include <windows.h>
 
+// Nama = Triyono Rifan
+// NPM = 20081010003
+// Kelas = PBO C081
+
 using namespace std;
 
 void mainMenu();
