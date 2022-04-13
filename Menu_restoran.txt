@@ -1,3 +1,4 @@
+
 Nasi_pecel	9000
 Ayam_Geprek	10000
 Ayam_Bakar	11000

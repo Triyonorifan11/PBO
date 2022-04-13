@@ -162,7 +162,7 @@ public:
         }
         else
         {
-            cout << "Data berhasil diupdate !! \n\n"
+            cout << "Data berhasil dihapus !! \n\n"
                  << endl;
             remove("Menu_restoran.txt");
             rename("temp.txt", "Menu_restoran.txt");
@@ -320,24 +320,6 @@ public:
     }
 };
 
-// fungsi bayar dengan bank
-void metodeBayarBank()
-{
-    Bank metode;
-    int pilihbank;
-    cout << "Pilih bank (1)BRI / (2)BSI ? ";
-    cin >> pilihbank;
-    if (pilihbank == 1)
-    {
-        metode.pilihbank("BRI");
-        cout << "\nKode bank BRI = " << metode.getBankBRI() << endl;
-    }
-    else if (pilihbank == 2)
-    {
-        metode.pilihbank("BSI");
-        cout << "\nKode bank BSI = " << metode.getBankBSI() << endl;
-    }
-}
 // 1. fungsi input menu restaurant
 void inputMenu()
 {
@@ -458,6 +440,25 @@ void deleteItem()
     // dataBase.showAll();
     system("pause");
     mainMenu();
+}
+
+// 6. fungsi bayar dengan bank
+void metodeBayarBank()
+{
+    Bank metode;
+    int pilihbank;
+    cout << "Pilih bank (1)BRI / (2)BSI ? ";
+    cin >> pilihbank;
+    if (pilihbank == 1)
+    {
+        metode.pilihbank("BRI");
+        cout << "\nKode bank BRI = " << metode.getBankBRI() << endl;
+    }
+    else if (pilihbank == 2)
+    {
+        metode.pilihbank("BSI");
+        cout << "\nKode bank BSI = " << metode.getBankBSI() << endl;
+    }
 }
 
 // tutup Aplikasi
