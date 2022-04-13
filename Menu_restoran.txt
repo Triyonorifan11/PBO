@@ -4,10 +4,10 @@ Ayam_Bakar	11000
 Ayam_Goreng	12000
 Ayam_Rendang	13000
 Ayam_Update	14000
-Ayam_sadis	15000
-Nasi_goreng	14000
+Ayam_Sadis	15000
+Nasi_Goreng	16000
 Nasi_pecel	9000
 Jus_orange	5000
 Ice_cream	7500
-Ice_teahh	4500
 Ice_Josua	6000
+Coffe_pixel	8500

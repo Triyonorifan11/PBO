@@ -86,7 +86,7 @@ public:
     }
 
     // Update database menu
-    void updateDb(int indexUpdate)
+    void updateMenu(int indexUpdate)
     {
         Db::output.open(Db::fileName, ios::in);
         Db::input.open("temp.txt", ios::app);
@@ -112,6 +112,46 @@ public:
             Db::input << "\n"
                       << updateNama;
             Db::input << "\t" << updateHarga;
+        }
+        Db::output.close();
+        Db::input.close();
+        if (flag == 0)
+        {
+            cout << "Data tidak ditemukan!!\n\n"
+                 << endl;
+            remove("temp.txt");
+        }
+        else
+        {
+            cout << "Data berhasil diupdate !! \n\n"
+                 << endl;
+            remove("Menu_restoran.txt");
+            rename("temp.txt", "Menu_restoran.txt");
+        }
+    }
+
+    void deleteMenu(int indexDelete)
+    {
+        Db::output.open(Db::fileName, ios::in);
+        Db::input.open("temp.txt", ios::app);
+        string hapusNama;
+        double hapusHarga;
+
+        int flag = 0;
+        int index = 1;
+
+        while (!Db::output.eof())
+        {
+            Db::output >> hapusNama;
+            Db::output >> hapusHarga;
+            index++;
+            if (indexDelete != index - 1)
+            {
+                flag = 1;
+                Db::input << "\n"
+                          << hapusNama;
+                Db::input << "\t" << hapusHarga;
+            }
         }
         Db::output.close();
         Db::input.close();
@@ -323,17 +363,35 @@ void update()
     cout << "\n\nPilih nomer data yang akan di update = ";
     cin >> update;
 
-    dataBase.updateDb(update);
-    dataBase.showAll();
+    dataBase.updateMenu(update);
+    // dataBase.showAll();
+    system("pause");
     mainMenu();
     // temp.save_update(dataBase.getUpdateNamaMenu(), dataBase.getUpdateHargaMenu());
+}
+
+// 5. fungsi hapus menu
+void deleteItem()
+{
+    Db dataBase = Db("Menu_restoran.txt");
+
+    int selected;
+    system("cls");
+    dataBase.showAll();
+    cout << "\n\nPilih nomer data yang akan di Hapus = ";
+    cin >> selected;
+
+    dataBase.deleteMenu(selected);
+    // dataBase.showAll();
+    system("pause");
+    mainMenu();
 }
 
 // tutup Aplikasi
 void close()
 {
     system("cls");
-    cout << "terima kasih" << endl;
+    cout << "Terima kasih" << endl;
 }
 
 // Main menu
@@ -341,12 +399,14 @@ void mainMenu()
 {
     system("cls");
     int input;
-    cout << " silahkan pilih menu" << endl;
+    cout << "RESTO PIXEL.ID" << endl;
+    cout << "Pilih menu aplikasi" << endl;
     cout << "1. Input Menu" << endl;
     cout << "2. Lihat Menu" << endl;
     cout << "3. Pesan Menu" << endl;
     cout << "4. Update Menu" << endl;
-    cout << "5. close" << endl;
+    cout << "5. Hapus Menu" << endl;
+    cout << "6. close" << endl;
     cout << "Pilih: ";
     cin >> input;
 
@@ -368,11 +428,15 @@ void mainMenu()
     }
     else if (input == 5)
     {
+        deleteItem();
+    }
+    else if (input == 6)
+    {
         close();
     }
     else
     {
-        cout << "salah input" << endl;
+        cout << "Menu tidak tersedia" << endl;
         system("pause");
         mainMenu();
     }
