@@ -281,36 +281,62 @@ public:
 class Metode
 {
 private:
-    string kodebank = "003";
+    string kodebankBRI;
+    string kodebankBSI;
 
 public:
-    void selec()
+    Metode()
     {
-        cout << "pilih";
+        this->kodebankBRI = "003";
+        this->kodebankBSI = "103";
     }
-    string getKodeBank()
+
+    string getBankBRI()
     {
-        return kodebank;
+        return kodebankBRI;
+    }
+    string getBankBSI()
+    {
+        return kodebankBSI;
     }
 };
 
 // turunan kelass metode
 class Bank : public Metode
 {
+private:
+    string bank;
+
 public:
     Bank()
     {
         cout << "Metode bayar dengan Bank/Mbanking" << endl;
     }
-    string bank = "BRI";
+
+    void pilihbank(string namabank)
+    {
+        cout << "Pilih Bank : " << namabank;
+        this->bank = namabank;
+    }
 };
 
-void metodeBayar()
+// fungsi bayar dengan bank
+void metodeBayarBank()
 {
     Bank metode;
-    metode.selec();
-    cout << " " << metode.bank << endl;
-    cout << "Kode bank = " << metode.getKodeBank() << endl;
+    int pilihbank;
+    cout << "Pilih bank (1)BRI / (2)BSI ? ";
+    cin >> pilihbank;
+    if (pilihbank == 1)
+    {
+        metode.pilihbank("BRI");
+        cout << "\nKode bank BRI = " << metode.getBankBRI() << endl;
+    }
+    else if (pilihbank == 2)
+    {
+        metode.pilihbank("BSI");
+        cout << "\nKode bank BSI = " << metode.getBankBSI() << endl;
+    }
 }
 // 1. fungsi input menu restaurant
 void inputMenu()
@@ -376,10 +402,24 @@ void pilihMenuPesan()
         break;
 
     case 2:
-        repo_fee.bayarpesanan();
+        int pilihbayar;
+        cout << "Pilih Metode bayar? (1)Tunai / (2) Bank (BSI/BRI) = ";
+        cin >> pilihbayar;
+        if (pilihbayar == 1)
+        {
+            repo_fee.bayarpesanan();
+        }
+        else if (pilihbayar == 2)
+        {
+            metodeBayarBank();
+            repo_fee.bayarpesanan();
+        }
         break;
     default:
+        cout << "Harap masukkan pilihan dengan benar" << endl
+             << endl;
         break;
+        pilihMenuPesan();
     }
 
     system("pause");
@@ -424,6 +464,7 @@ void deleteItem()
 void close()
 {
     system("cls");
+    cout << "RESTO PIXEL.ID" << endl;
     cout << "Terima kasih" << endl;
 }
 
@@ -433,15 +474,14 @@ void mainMenu()
     system("cls");
     int input;
     cout << "RESTO PIXEL.ID" << endl;
-    cout << "Pilih menu aplikasi" << endl;
+    cout << "Pilih Fitur aplikasi" << endl;
     cout << "1. Input Menu" << endl;
     cout << "2. Lihat Menu" << endl;
     cout << "3. Pesan Menu" << endl;
     cout << "4. Update Menu" << endl;
     cout << "5. Hapus Menu" << endl;
-    cout << "6. close" << endl;
-    cout << "7. tes bayar" << endl;
-    cout << "Pilih: ";
+    cout << "6. Tutup Aplikasi" << endl;
+    cout << "Pilih fitur: ";
     cin >> input;
 
     if (input == 1)
@@ -468,10 +508,7 @@ void mainMenu()
     {
         close();
     }
-    else if (input == 7)
-    {
-        metodeBayar();
-    }
+
     else
     {
         cout << "Menu tidak tersedia" << endl;
