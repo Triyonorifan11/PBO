@@ -1,7 +1,7 @@
 # PBO
 <p>repositori untuk tugas Uts Pemrograman Berorientasi Objek</p>
 April 2022
-
-Nama : Triyono Rifan
-NPM : 20081010003
-Kelas : Pemrograman Berorientasi Objek C081
+<p></p>
+<p>Nama : Triyono Rifan</p>
+<p>NPM : 20081010003</p>
+<p>Kelas : Pemrograman Berorientasi Objek C081</p>
