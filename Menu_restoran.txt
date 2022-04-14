@@ -1,13 +1,13 @@
-
-Nasi_pecel	9000
-Ayam_Geprek	10000
-Ayam_Bakar	11000
-Ayam_Goreng	12000
-Ayam_Rendang	13000
-Ayam_Update	14000
-Ayam_Sadis	15000
-Nasi_Goreng	16000
-Jus_orange	5000
-Ice_cream	7500
-Ice_Josua	6000
-Coffe_pixel	8500
+Special_Rice	35000
+Fried_Chicken	27000
+Grilled_Chicken	28900
+Noodle_Chicken	21400
+Rendang_Chicken	23900
+Special_Chicken	31900
+Sinjay_DuckGo	42900
+Fride_RiceGo	33500
+Jus_orange	15900
+Ice_Mounted	11900
+Ice_JosuaGo	11100
+Coffe_Pixel	12500
+Ice_ChocoGo	13890

@@ -11,6 +11,7 @@ using namespace std;
 
 void mainMenu();
 void pilihMenuPesan();
+void metodeBayarBank();
 
 // simpan data menu
 // class daftar menu
@@ -52,16 +53,19 @@ private:
     double bayar;
 
 public:
+    // nama database txt
     Db(const char *fileName)
     {
         Db::fileName = fileName;
     }
 
+    // mengambil data Nama Menu
     string getNamaMenu()
     {
         return menu_pilih;
     }
 
+    // Mengambil data Harga Menu
     double getHargaMenu()
     {
         return harga_pilih;
@@ -194,7 +198,7 @@ public:
             cout << index++ << "\t" << tampilNama << "\t" << tampilHarga << endl;
         }
 
-        cout << "jumlah Menu: " << index - 1 << endl;
+        cout << "\njumlah Menu: " << index - 1 << endl;
 
         Db::output.close();
     }
