@@ -1,13 +1,10 @@
-Special_Rice	35000
-Fried_Chicken	27000
-Grilled_Chicken	28900
-Noodle_Chicken	21400
-Rendang_Chicken	23900
-Special_Chicken	31900
-Sinjay_DuckGo	42900
-Fride_RiceGo	33500
-Jus_orange	15900
-Ice_Mounted	11900
-Ice_JosuaGo	11100
-Coffe_Pixel	12500
-Ice_ChocoGo	13890
+
+Chicken_joss	99900
+Nasi_pecel	45900
+Nasi_Spesial	19400
+Nasi_Gila	11000
+Nasi_Ganas	19500
+Nasi_Sate	15000
+Nasi_Geprek	12000
+Nasi_Goreng	14000
+Jus_Jeruk	9500

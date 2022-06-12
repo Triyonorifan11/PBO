@@ -198,7 +198,7 @@ public:
             cout << index++ << "\t" << tampilNama << "\t" << tampilHarga << endl;
         }
 
-        cout << "\njumlah Menu: " << index - 1 << endl;
+        cout << "\nJumlah Menu: " << index - 1 << endl;
 
         Db::output.close();
     }
@@ -259,7 +259,7 @@ public:
     {
 
         double pesanan = this->bayar;
-        double pajak = 0.01 * pesanan;
+        double pajak = 0.001 * pesanan;
         double diskon = 0;
         double total_bayar = 0;
         double bayar_pelanggan = 0;
@@ -332,23 +332,48 @@ public:
 void inputMenu()
 {
     system("cls");
-    Db dataBase = Db("Menu_restoran.txt");
+    Db dataBase_Menu = Db("Menu_restoran.txt");
+    // Db dataBase_Minum = Db("Minum_restoran.txt");
 
     string namaMenu;
     double harga;
-    cout << "Catatan !! jika ada spasi ganti _" << endl;
+    int tipe;
+    cout << "Catatan !! jika ada spasi ganti '_'" << endl;
     cout << "\nInput Menu" << endl;
     cout << "Nama : ";
     cin >> namaMenu;
     cout << "Harga : ";
     cin >> harga;
+    // cout << "Pilih Tipe = 1(Makanan) atau 2(Minuman) : ";
+    // cin >> tipe;
 
     Menu menu1 = Menu(namaMenu, harga);
-    // save data
-    dataBase.save(menu1);
     cout << "\n\nData tersimpan !!\n"
          << endl;
     system("pause");
+
+    // switch (tipe)
+    // {
+    // case 1:
+    //     // save data
+    //     dataBase_Menu.save(menu1);
+    //     cout << "\n\nData tersimpan !!\n"
+    //          << endl;
+    //     system("pause");
+    //     break;
+
+    // case 2:
+    //     // dataBase_Minum.save(menu1);
+    //     cout << "\n\nData tersimpan !!\n"
+    //          << endl;
+    //     system("pause");
+    //     break;
+    // default:
+    //     cout << "Salah inputan" << endl;
+    //     cout << "Data tidak Tersimpan" << endl;
+    //     break;
+    // }
+
     mainMenu();
 }
 
@@ -357,8 +382,13 @@ void tampilMenu()
 {
     system("cls");
     Db dataBase = Db("Menu_restoran.txt");
+    // Db data_minum = Db("Minum_restoran.txt");
     // tampilkan data
+    // cout << "Daftar Makanan" << endl;
     dataBase.showAll();
+    // cout << "\n\nDaftar Minuman" << endl;
+    // data_minum.showAll();
+
     system("Pause");
     mainMenu();
 }
@@ -480,6 +510,12 @@ void close()
 // Main menu
 void mainMenu()
 {
+    ofstream createMakan, createMinum;
+    createMakan.open("Menu_restoran.txt", ios::app);
+    // createMinum.open("Minum_restoran.txt", ios::app);
+    createMakan.close();
+    // createMinum.close();
+
     system("cls");
     int input;
     cout << "RESTO PIXEL.ID" << endl;
