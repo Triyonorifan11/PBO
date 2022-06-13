@@ -5,7 +5,7 @@
 #include <windows.h>
 
 // Nama = 1. Triyono Rifan (20081010003)
-//        2. Alfian Rachmad Dianto ()
+//        2. Alfian Rachmad Dianto (20081010011)
 // Kelas = PBO C081
 
 using namespace std;
