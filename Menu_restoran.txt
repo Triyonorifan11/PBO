@@ -1,10 +1,9 @@
 
-Chicken_joss	99900
-Nasi_pecel	45900
-Nasi_Spesial	19400
-Nasi_Gila	11000
-Nasi_Ganas	19500
-Nasi_Sate	15000
-Nasi_Geprek	12000
-Nasi_Goreng	14000
-Jus_Jeruk	9500
+Nasi_Pecel	12000
+Nasi_Rames	15000
+Nasi_Jagung	10000
+Nasi_Kucing	8000
+Nasi_Kuning	12000
+Nasi_Campur	13000
+Es_TehManis	5000
+Es_Jeruk	6000
